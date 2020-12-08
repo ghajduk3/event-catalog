@@ -1,2 +1,4 @@
+si/fri/rso/event_catalog/services/dao/EventDAO.class
 si/fri/rso/event_catalog/services/producers/PersistenceProducer.class
+si/fri/rso/event_catalog/services/dao/GenericDAO.class
 si/fri/rso/event_catalog/services/db/EventsDbBean.class

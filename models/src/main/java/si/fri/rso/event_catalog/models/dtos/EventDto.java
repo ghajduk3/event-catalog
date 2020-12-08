@@ -13,8 +13,7 @@ public class EventDto {
     private Date eventStart;
     private Date eventEnd;
     private Date dateStored = new Date();
-    private Integer location_id;
-    private Integer image_id;
+    private String address;
     private String description;
 
     public EventDto(){}
@@ -26,14 +25,14 @@ public class EventDto {
         this.description = description;
     }
 
-    public EventDto(Integer event_id, Date eventStart, Date eventEnd, Integer location_id, Integer image_id, String description) {
+    public EventDto(Integer event_id, Date eventStart, Date eventEnd, String address,String description) {
         this.event_id = event_id;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
-        this.location_id = location_id;
-        this.image_id = image_id;
+        this.address = address;
         this.description = description;
     }
+
 
     public Integer getEvent_id() {
         return event_id;
@@ -67,21 +66,15 @@ public class EventDto {
         this.dateStored = dateStored;
     }
 
-    public Integer getLocation_id() {
-        return location_id;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLocation_id(Integer location_id) {
-        this.location_id = location_id;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public Integer getImage_id() {
-        return image_id;
-    }
 
-    public void setImage_id(Integer image_id) {
-        this.image_id = image_id;
-    }
 
     public String getDescription() {
         return description;

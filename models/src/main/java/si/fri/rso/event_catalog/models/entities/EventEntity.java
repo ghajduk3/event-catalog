@@ -10,27 +10,24 @@ import java.util.Date;
 
 @Entity
 @Table(name="cleaning_events")
+@NamedQueries(value=
+        {
+      @NamedQuery(name="Event.findAll",query = "SELECT ev FROM EventEntity ev")
+})
 public class EventEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="event_id")
-    private Integer event_id;
-
+    private Integer id;
     @Column(name="event_start")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date eventStart;
-
     @Column(name="event_end")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date eventEnd;
-
     @Column(name="record_stored")
-
     private Date dateStored = new Date();
-
-    @Column(name="location_id")
-
+    @Column(name="location_id",columnDefinition = "integer default 1")
     private Integer location_id;
     @Column(name="image_id")
     private Integer image_id;
@@ -40,15 +37,16 @@ public class EventEntity implements Serializable {
     public EventEntity(){
 
     }
+
     public EventEntity(Integer event_id, Date eventStart, Date eventEnd,String description) {
-        this.event_id = event_id;
+        this.id = event_id;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.description = description;
     }
 
-    public EventEntity(Integer event_id, Date eventStart, Date eventEnd, Integer location_id, Integer image_id, String description) {
-        this.event_id = event_id;
+    public EventEntity(Integer event_id,Date eventStart, Date eventEnd, Integer location_id, Integer image_id, String description) {
+        this.id = event_id;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.location_id = location_id;
@@ -57,11 +55,11 @@ public class EventEntity implements Serializable {
     }
 
     public Integer getEvent_id() {
-        return event_id;
+        return id;
     }
 
     public void setEvent_id(Integer event_id) {
-        this.event_id = event_id;
+        this.id = event_id;
     }
 
     public Date getEventStart() {

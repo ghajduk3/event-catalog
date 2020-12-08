@@ -1,0 +1,24 @@
+GET http://localhost:8082/catalog/events/1
+
+<> 2020-12-07T192049.404.html
+
+###
+
+GET http://localhost/catalog:8082/events/1
+
+<> 2020-12-07T192029.404.html
+
+###
+
+GET http://localhost/catalog/events
+
+<> 2020-12-07T191853.404.html
+
+###
+
+GET http://localhost/catalog/events
+
+<> 2020-12-07T191837.404.html
+
+###
+
