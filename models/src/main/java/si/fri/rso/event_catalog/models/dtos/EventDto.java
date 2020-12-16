@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Date;
 
 public class EventDto {
@@ -15,22 +15,30 @@ public class EventDto {
     private Date dateStored = new Date();
     private String address;
     private String description;
+    private String uploadedInputStream;
+    private Long fileLength;
+
+
 
     public EventDto(){}
 
-    public EventDto(Integer event_id, Date eventStart, Date eventEnd,String description) {
+    public EventDto(Integer event_id, Date eventStart, Date eventEnd,String description,String uploadedInputStream,Long fileLength) {
         this.event_id = event_id;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.description = description;
+        this.uploadedInputStream = uploadedInputStream;
+        this.fileLength = fileLength;
     }
 
-    public EventDto(Integer event_id, Date eventStart, Date eventEnd, String address,String description) {
+    public EventDto(Integer event_id, Date eventStart, Date eventEnd, String address, String description, String uploadedInputStream,Long fileLength) {
         this.event_id = event_id;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.address = address;
         this.description = description;
+        this.uploadedInputStream = uploadedInputStream;
+        this.fileLength = fileLength;
     }
 
 
@@ -82,5 +90,21 @@ public class EventDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUploadedInputStream() {
+        return uploadedInputStream;
+    }
+
+    public void setUploadedInputStream(String uploadedInputStream) {
+        this.uploadedInputStream = uploadedInputStream;
+    }
+
+    public Long getFileLength() {
+        return fileLength;
+    }
+
+    public void setFileLength(Long fileLength) {
+        this.fileLength = fileLength;
     }
 }

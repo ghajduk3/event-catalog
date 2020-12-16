@@ -1,3 +1,4 @@
+si/fri/rso/event_catalog/models/dtos/ImageDTO.class
 si/fri/rso/event_catalog/models/transformers/EventConverter.class
 si/fri/rso/event_catalog/models/entities/EventEntity.class
 si/fri/rso/event_catalog/models/transformers/GenericConverter.class

@@ -48,6 +48,7 @@ public abstract class GenericDAO<E,PK> {
         try{
             beginTx();
             em.persist(instance);
+            em.flush();
             commitTx();
         }catch (Exception e){
             rollbackTx();
