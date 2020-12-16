@@ -1,39 +1,29 @@
 package si.fri.rso.event_catalog.models.dtos;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.io.BufferedInputStream;
-import java.io.Serializable;
-
-
-public class ImageDTO{
-
+public class ImageDTO {
     private String fileInputStream;
     private Long fileLength;
 
-
-
-    public ImageDTO(){}
-
-    public ImageDTO(String inputStream, Long fileSize) {
-        this.fileInputStream = inputStream;
-        this.fileLength = fileSize;
+    public ImageDTO(String fileInputStream, Long fileLength) {
+        this.fileInputStream = fileInputStream;
+        this.fileLength = fileLength;
     }
 
-    public String getInputStream() {
+    public String getFileInputStream() {
         return fileInputStream;
     }
 
-    public void setInputStream(String inputStream) {
-        this.fileInputStream = inputStream;
+    public void setFileInputStream(String fileInputStream) {
+        this.fileInputStream = fileInputStream;
     }
 
-    public Long getFileSize() {
+    public Long getFileLength() {
         return fileLength;
     }
 
-    public void setFileSize(Long fileSize) {
-        this.fileLength = fileSize;
+    public void setFileLength(Long fileLength) {
+        this.fileLength = fileLength;
     }
+
 
 }

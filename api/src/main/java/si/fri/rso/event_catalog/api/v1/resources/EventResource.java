@@ -68,7 +68,7 @@ public class EventResource {
         else {
            event = eventBean.createEvent(event);
         }
-        return Response.status(200).entity(1).build();
+        return Response.status(200).entity(event).build();
     }
 //    @POST
 //    public Response postEvent(EventDto event) throws Exception {
