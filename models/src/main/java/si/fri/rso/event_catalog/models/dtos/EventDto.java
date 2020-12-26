@@ -17,6 +17,7 @@ public class EventDto {
     private String description;
     private String uploadedInputStream;
     private Long fileLength;
+    private String imageUri;
 
 
 
@@ -31,7 +32,8 @@ public class EventDto {
         this.fileLength = fileLength;
     }
 
-    public EventDto(Integer event_id, Date eventStart, Date eventEnd, String address, String description, String uploadedInputStream,Long fileLength) {
+
+    public EventDto(Integer event_id, Date eventStart, Date eventEnd, String address, String description, String uploadedInputStream, Long fileLength, String imageUri) {
         this.event_id = event_id;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
@@ -39,6 +41,7 @@ public class EventDto {
         this.description = description;
         this.uploadedInputStream = uploadedInputStream;
         this.fileLength = fileLength;
+        this.imageUri = imageUri;
     }
 
 
@@ -106,5 +109,13 @@ public class EventDto {
 
     public void setFileLength(Long fileLength) {
         this.fileLength = fileLength;
+    }
+
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 }

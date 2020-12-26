@@ -1,6 +1,6 @@
 package si.fri.rso.event_catalog.services.dao;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 
 import javax.inject.Inject;
 import javax.persistence.*;
@@ -22,8 +22,8 @@ public abstract class GenericDAO<E,PK> {
         this.entityClass = entityClass;
     }
 
-    public List<E> findAll() throws NotImplementedException{
-        throw  new NotImplementedException();
+    public List<E> findAll() throws UnsupportedOperationException{
+        throw  new UnsupportedOperationException();
     }
 
     public E findById(PK id) throws InvalidParameterException, EntityNotFoundException {
@@ -59,11 +59,11 @@ public abstract class GenericDAO<E,PK> {
         return instance;
     }
 
-    public E update(E instance, PK id) throws NotImplementedException {
-        throw new NotImplementedException();
+    public E update(E instance, PK id) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
     }
 
-    public Boolean deleteById(PK id) throws NotImplementedException {
+    public Boolean deleteById(PK id) throws UnsupportedOperationException {
         E entity = findById(id);
         if(entity != null){
             try{
@@ -76,9 +76,7 @@ public abstract class GenericDAO<E,PK> {
         }else{
             return false;
         }
-
         return true;
-
     }
 
 

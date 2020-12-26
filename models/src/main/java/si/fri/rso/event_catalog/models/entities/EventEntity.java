@@ -30,7 +30,7 @@ public class EventEntity implements Serializable {
     @Column(name="location_id",columnDefinition = "integer default 1")
     private Integer location_id;
     @Column(name="image_id")
-    private Integer image_id;
+    private String image_uri;
     @Column(name="description")
     private String description;
 
@@ -45,12 +45,12 @@ public class EventEntity implements Serializable {
         this.description = description;
     }
 
-    public EventEntity(Integer event_id,Date eventStart, Date eventEnd, Integer location_id, Integer image_id, String description) {
+    public EventEntity(Integer event_id,Date eventStart, Date eventEnd, Integer location_id, String image_uri, String description) {
         this.id = event_id;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.location_id = location_id;
-        this.image_id = image_id;
+        this.image_uri = image_uri;
         this.description = description;
     }
 
@@ -94,12 +94,12 @@ public class EventEntity implements Serializable {
         this.location_id = location_id;
     }
 
-    public Integer getImage_id() {
-        return image_id;
+    public String getImage_id() {
+        return image_uri;
     }
 
-    public void setImage_id(Integer image_id) {
-        this.image_id = image_id;
+    public void setImage_id(String image_id) {
+        this.image_uri = image_uri;
     }
 
     public String getDescription() {

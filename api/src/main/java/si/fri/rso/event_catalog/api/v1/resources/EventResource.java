@@ -35,7 +35,6 @@ public class EventResource {
     private EventsDbBean eventBean;
 
     @Produces({MediaType.APPLICATION_JSON})
-//    @Consumes({MediaType.MULTIPART_FORM_DATA})
     @POST
     public Response postEvent(
                               @FormDataParam("eventStart") String eventStart,
@@ -57,10 +56,8 @@ public class EventResource {
             e.printStackTrace();
         }
 
-//        BufferedInputStream fileInputStream = new BufferedInputStream(new FileInputStream(uploadedInputStream));
-        EventDto event = new EventDto(null,dat.parse(eventStart),dat.parse(eventEnd),address,description, Base64.getEncoder().encodeToString(bytes),Long.valueOf(bytes.length));
+        EventDto event = new EventDto(null,dat.parse(eventStart),dat.parse(eventEnd),address,description, Base64.getEncoder().encodeToString(bytes),Long.valueOf(bytes.length),null);
         System.out.println(Base64.getEncoder().encodeToString(bytes));
-
 
         if((event.getEventStart() == null || event.getEventEnd() == null || event.getAddress()==null || event.getDescription() == null)){
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -70,17 +67,7 @@ public class EventResource {
         }
         return Response.status(200).entity(event).build();
     }
-//    @POST
-//    public Response postEvent(EventDto event) throws Exception {
-//        System.out.println(event.getUploadedInputStream());
-////        if((event.getEventStart() == null || event.getEventEnd() == null || event.getAddress()==null || event.getDescription() == null)){
-////            return Response.status(Response.Status.BAD_REQUEST).build();
-////        }
-////        else {
-////           event = eventBean.createEvent(event);
-////        }
-//        return Response.status(200).entity(event).build();
-//    }
+
     @Produces({MediaType.APPLICATION_JSON})
     @GET
     public Response getEvent(){

@@ -35,51 +35,27 @@ public class EventsDbBean {
     private Client httpClient;
 
     private String baseUrl;
+    private String baseUrlLocation;
 
 
 
     @PostConstruct
     private void init(){
         httpClient = ClientBuilder.newClient();
-        baseUrl = "http://127.0.0.1:8081/v1/upload";
+        baseUrl = "http://127.0.0.1:8082/v1/upload";
+        baseUrlLocation = "http://127.0.0.1:8083/v1/location/process";
     }
 
-    public Integer uploadImage(ImageDTO image) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String result;
-        String imageAsString;
-        try {
-            imageAsString = objectMapper.writeValueAsString(image);
-        }catch (Exception e){
-            throw new InternalServerErrorException(e);
-        }
-        System.out.println(imageAsString);
-
-        Entity ent = Entity.entity(imageAsString,MediaType.APPLICATION_JSON_TYPE);
-
-        System.out.println(ent.getEntity());
-        System.out.println(ent.toString());
-        try {
-            result = httpClient
-                    .target(baseUrl)
-                    .request()
-                    .post(ent,String.class);
-
-
-        }catch(WebApplicationException | ProcessingException e){
-            System.out.println(e.getMessage());
-            throw new InternalServerErrorException(e);
-        }
-        return Integer.parseInt(result);
-    }
 
     public EventDto createEvent(EventDto event) throws Exception {
 
-        Integer imageId = uploadImage(new ImageDTO(event.getUploadedInputStream(),event.getFileLength()));
+        Integer locationId = preprocessLocation(event.getAddress());
+        String imageUri = uploadImage(new ImageDTO(event.getUploadedInputStream(),event.getFileLength()));
         System.out.println("----- Image id ------");
-        System.out.println(imageId);
+        System.out.println(imageUri);
         EventEntity ent = eventConverter.transformToEntity(event);
-        ent.setImage_id(imageId);
+        ent.setImage_id(imageUri);
+        ent.setLocation_id(locationId);
         System.out.println(ent.getDescription());
         ent = eventDao.createNew(ent);
         return eventConverter.transformToDTO(ent);
@@ -106,5 +82,53 @@ public class EventsDbBean {
         return eventConverter.transformToDTO(entity);
     }
 
+
+    public String uploadImage(ImageDTO image) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String result;
+        String imageAsString;
+        try {
+            imageAsString = objectMapper.writeValueAsString(image);
+        }catch (Exception e){
+            throw new InternalServerErrorException(e);
+        }
+        System.out.println(imageAsString);
+
+        Entity ent = Entity.entity(imageAsString,MediaType.APPLICATION_JSON_TYPE);
+
+        System.out.println(ent.getEntity());
+        System.out.println(ent.toString());
+        try {
+            result = httpClient
+                    .target(baseUrl)
+                    .request()
+                    .post(ent,String.class);
+
+        }catch(WebApplicationException | ProcessingException e){
+            System.out.println(e.getMessage());
+            throw new InternalServerErrorException(e);
+        }
+        return result;
     }
+
+    public Integer preprocessLocation(String location){
+        String locationId;
+        try {
+            locationId = httpClient
+                    .target(baseUrlLocation)
+                    .queryParam("address",location)
+                    .request()
+                    .get(String.class);
+
+        }catch(WebApplicationException | ProcessingException e){
+            System.out.println(e.getMessage());
+            throw new InternalServerErrorException(e);
+        }
+
+        return Integer.parseInt(locationId);
+
+    }
+
+
+}
 

@@ -18,8 +18,8 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>14</maven.compiler.source>
+        <maven.compiler.target>14</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kumuluzee.version>3.11.0-SNAPSHOT</kumuluzee.version>
         <jersey-media.version>2.9</jersey-media.version>
@@ -98,14 +98,6 @@
             <artifactId>kumuluzee-cdi-weld</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.kumuluz.ee</groupId>-->
-<!--            <artifactId>kumuluzee-jpa-hibernate</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.kumuluz.ee</groupId>-->
-<!--            <artifactId>kumuluzee-jta-narayana</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
@@ -121,21 +113,7 @@
             <artifactId>geronimo-config-impl</artifactId>
             <version>1.0</version>
         </dependency>
-        <!--               <dependency>-->
-        <!--                   <groupId>com.kumuluz.ee.config</groupId>-->
-        <!--                   <artifactId>kumuluzee-config-mp</artifactId>-->
-        <!--                   <version>1.4.0-SNAPSHOT</version>-->
-        <!--               </dependency>-->
-        <!--               <dependency>-->
-        <!--                   <artifactId>kumuluzee-config</artifactId>-->
-        <!--                   <groupId>com.kumuluz.ee.config</groupId>-->
-        <!--                   <version>1.2.0-SNAPSHOT</version>-->
-        <!--               </dependency>-->
-        <!--               <dependency>-->
-        <!--                   <groupId>com.sun.jersey.contribs</groupId>-->
-        <!--                   <artifactId>jersey-multipart</artifactId>-->
-        <!--                   <version>1.13</version>-->
-        <!--               </dependency>-->
+
     </dependencies>
 
 
