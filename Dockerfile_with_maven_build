@@ -12,7 +12,7 @@ RUN mkdir /app
 WORKDIR /app
 
 #Adds target jar to working directory
-COPY --from=build ./api/target/event-catalog-api-1.0.0-SNAPSHOT.jar /app
+COPY --from=build ./app/api/target/event-catalog-api-1.0.0-SNAPSHOT.jar /app
 
 #Exposes specific port to the container interface
 EXPOSE 8081
