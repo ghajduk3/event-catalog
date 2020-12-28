@@ -34,4 +34,4 @@ jobs:
         with:
           file: ./Dockerfile_with_maven_build
           push: true
-          tags: ghajduk3/event-catalog:${{ steps.time.outputs.time }}
+          tags: ghajduk3/event-catalog:${{ steps.time.outputs.time }}, ghajduk3/event-catalog:latest

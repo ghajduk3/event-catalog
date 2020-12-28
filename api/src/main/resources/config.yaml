@@ -3,6 +3,12 @@ kumuluzee:
   env:
     name: dev
   version: 1.0.0
+  config:
+    start-retry-delay-ms: 500
+    max-retry-delay-ms: 900000
+    etcd:
+      hosts: http://localhost:2379
+
   server:
     base-url: http://localhost:8081
     http:
@@ -15,5 +21,19 @@ kumuluzee:
   persistence-units:
     - name: "event-catalog-jpa"
       continue-on-error: false
+
+location:
+  service-name: location-processing
+  port: 8083
+  version: 1.0.0
+  environment: dev
+  process-base-uri: v1/location/process
+
+image:
+  service-name: image-upload
+  port: 8082
+  version: 1.0.0
+  environment: dev
+  upload-base-uri: v1/upload/
 
 

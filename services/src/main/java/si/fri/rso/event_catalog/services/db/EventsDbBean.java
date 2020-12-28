@@ -5,6 +5,8 @@ import si.fri.rso.event_catalog.models.dtos.EventDto;
 import si.fri.rso.event_catalog.models.dtos.ImageDTO;
 import si.fri.rso.event_catalog.models.entities.EventEntity;
 import si.fri.rso.event_catalog.models.transformers.EventConverter;
+import si.fri.rso.event_catalog.services.config.ImageProperties;
+import si.fri.rso.event_catalog.services.config.LocationProperties;
 import si.fri.rso.event_catalog.services.dao.EventDAO;
 
 import javax.annotation.PostConstruct;
@@ -34,6 +36,12 @@ public class EventsDbBean {
     private EventConverter eventConverter;
     private Client httpClient;
 
+    @Inject
+    private ImageProperties imageConfig;
+
+    @Inject
+    private LocationProperties locationConfig;
+
     private String baseUrl;
     private String baseUrlLocation;
 
@@ -42,8 +50,8 @@ public class EventsDbBean {
     @PostConstruct
     private void init(){
         httpClient = ClientBuilder.newClient();
-        baseUrl = "http://127.0.0.1:8082/v1/upload";
-        baseUrlLocation = "http://127.0.0.1:8083/v1/location/process";
+        baseUrl = "http://" + imageConfig.getServiceName() + ":8082/v1/upload";
+        baseUrlLocation = "http://" + locationConfig.getServiceName() + ":8083/v1/location/process";
     }
 
 
