@@ -14,10 +14,15 @@ kumuluzee:
     http:
       port: 8081
   datasources:
+#    - jndi-name: jdbc/EventCatalogDS
+#      connection-url: jdbc:postgresql://localhost:5432/event-catalog
+#      username: postgres
+#      password: postgres
     - jndi-name: jdbc/EventCatalogDS
-      connection-url: jdbc:postgresql://localhost:5432/event-catalog
-      username: postgres
+      connection-url: jdbc:postgresql:///rsodatabase?cloudSqlInstance=a1-projekat:us-central1:rsodatabase&socketFactory=com.google.cloud.sql.postgres.SocketFactory
+      username: postgres1
       password: postgres
+
   persistence-units:
     - name: "event-catalog-jpa"
       continue-on-error: false

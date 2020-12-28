@@ -28,7 +28,6 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 public class EventsDbBean {
 
-
     @Inject
     private EventDAO eventDao;
 

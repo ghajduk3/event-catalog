@@ -12,6 +12,7 @@
             <property name="javax.persistence.sql-load-script-source"
                       value="sql-scripts/init.sql" />
             <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
+            <property name="javax.persistence." value="metadata"/>
         </properties>
     </persistence-unit>
 </persistence>
