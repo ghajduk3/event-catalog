@@ -13,6 +13,10 @@ spec:
       labels:
         app: event-catalog
     spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: pubsub-key
       containers:
         - image: ghajduk3/event-catalog:latest
 #          Pod name
@@ -28,6 +32,12 @@ spec:
 #                secretKeyRef:
 #                  name: pg-pass
 #                  key: KUMULUZEE_DATASOURCES0_PASSWORD
+          volumeMounts:
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
           ports:
             - containerPort: 8080
               name: server
