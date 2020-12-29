@@ -39,21 +39,9 @@ spec:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/key.json
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
               name: server
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /health/live
-              port: server
-            initialDelaySeconds: 20
-            periodSeconds: 3
-          readinessProbe:
-            httpGet:
-              path: /health/ready
-              port: server
-            initialDelaySeconds: 20
-            periodSeconds: 3
 
 ---
 

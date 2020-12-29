@@ -29,14 +29,14 @@ kumuluzee:
 
 location:
   service-name: location-processing
-  port: 8083
+  port: 8080
   version: 1.0.0
   environment: dev
   process-base-uri: v1/location/process
 
 image:
   service-name: image-upload
-  port: 8082
+  port: 8080
   version: 1.0.0
   environment: dev
   upload-base-uri: v1/upload/

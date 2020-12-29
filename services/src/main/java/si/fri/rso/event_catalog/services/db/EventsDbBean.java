@@ -49,8 +49,8 @@ public class EventsDbBean {
     @PostConstruct
     private void init(){
         httpClient = ClientBuilder.newClient();
-        baseUrl = "http://" + imageConfig.getServiceName() + ":8082/v1/upload";
-        baseUrlLocation = "http://" + locationConfig.getServiceName() + ":8083/v1/location/process";
+        baseUrl = "http://" + imageConfig.getServiceName() + ":" + imageConfig.getPort() + "/v1/upload";
+        baseUrlLocation = "http://" + locationConfig.getServiceName() +  ":" + imageConfig.getPort() + "/v1/location/process";
     }
 
 
