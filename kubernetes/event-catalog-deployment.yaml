@@ -62,7 +62,9 @@ kind: Service
 metadata:
   name: event-catalog
 spec:
-  type: LoadBalancer
+#  Changed to ClusterIP because we are using Ingress
+  type: ClusterIP
+#  type: LoadBalancer
   ports:
     - port: 8080
       protocol: TCP

@@ -21,12 +21,13 @@ import java.util.List;
 
 
 //import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.kumuluz.ee.logs.cdi.Log;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import si.fri.rso.event_catalog.models.dtos.EventDto;
 import si.fri.rso.event_catalog.services.db.EventsDbBean;
 
-
+@Log
 @Path("/catalog/events")
 @RequestScoped
 public class EventResource {

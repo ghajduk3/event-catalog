@@ -13,6 +13,7 @@ kumuluzee:
     base-url: http://localhost:8081
     http:
       port: 8081
+
   datasources:
 #    - jndi-name: jdbc/EventCatalogDS
 #      connection-url: jdbc:postgresql://localhost:5432/event-catalog
@@ -29,6 +30,30 @@ kumuluzee:
         jndi-name: jdbc/EventCatalogDS
       http-health-check:
         - connection-url: http://github.com/kumuluz/kumuluzee-health
+  metrics:
+    web-instrumentation:
+      - name: event-endpoint
+        url-pattern: /v1/catalog/events/*
+  logs:
+    config-file: '<?xml version="1.0" encoding="UTF-8"?>
+                        <Configuration name="comments">
+                            <Appenders>
+                                <Console name="console" target="SYSTEM_OUT">
+                                    <PatternLayout pattern="%d %p %marker %m %X %ex %n"/>
+                                </Console>
+                                <Socket name="logstash" host="852bac38-fc96-4293-8c3c-78c39d020464-ls.logit.io"
+                                port="29177" protocol="udp">
+                                    <JSONLayout complete="false" compact="true" eventEol="true" charset="UTF-8" properties="true"/>
+                                </Socket>
+                            </Appenders>
+                            <Loggers>
+                                <!-- Default logger -->
+                                <Root level="all">
+                                    <AppenderRef ref="console" level="info" />
+                                    <AppenderRef ref="logstash" level="trace" />
+                                </Root>
+                            </Loggers>
+                        </Configuration>'
 
   persistence-units:
     - name: "event-catalog-jpa"
