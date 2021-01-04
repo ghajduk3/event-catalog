@@ -16,21 +16,27 @@ kumuluzee:
 
   datasources:
 # PRODUCTION
+#    - jndi-name: jdbc/EventCatalogDS
+#      connection-url: jdbc:postgresql:///rsodatabase?cloudSqlInstance=a1-projekat:us-central1:rsodatabase&socketFactory=com.google.cloud.sql.postgres.SocketFactory
+#      username: postgres1
+#      password: postgres
     - jndi-name: jdbc/EventCatalogDS
-      connection-url: jdbc:postgresql:///rsodatabase?cloudSqlInstance=a1-projekat:us-central1:rsodatabase&socketFactory=com.google.cloud.sql.postgres.SocketFactory
-      username: postgres1
+      connection-url: jdbc:postgresql://localhost:5432/event-catalog
+      username: postgres
       password: postgres
   health:
     checks:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/EventCatalogDS
-      http-health-check:
-        - connection-url: http://github.com/kumuluz/kumuluzee-health
+#      http-health-check:
+#        - connection-url: http://location-processing/v1/location
   metrics:
     web-instrumentation:
-      - name: event-endpoint
+      - name: eventEndpoint
         url-pattern: /v1/catalog/events/*
+      - name: metricsEndpoint
+        url-pattern: /metrics/*
   logs:
     config-file: '<?xml version="1.0" encoding="UTF-8"?>
                         <Configuration name="comments">
@@ -69,5 +75,9 @@ image:
   version: 1.0.0
   environment: prod
   upload-base-uri: v1/upload/
+
+app-properties:
+  broken: false
+
 
 

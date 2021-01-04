@@ -22,6 +22,10 @@ import java.util.List;
 
 //import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.kumuluz.ee.logs.cdi.Log;
+import org.eclipse.microprofile.metrics.Meter;
+import org.eclipse.microprofile.metrics.ConcurrentGauge;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Metric;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import si.fri.rso.event_catalog.models.dtos.EventDto;
@@ -34,6 +38,14 @@ public class EventResource {
 
     @Inject
     private EventsDbBean eventBean;
+
+    @Inject
+    @Metric(name = "events_counter")
+    private ConcurrentGauge eventsCounter;
+
+    @Inject
+    @Metric(name = "events_adding_meter")
+    private Meter addMeter;
 
     @Produces({MediaType.APPLICATION_JSON})
     @POST
@@ -66,11 +78,14 @@ public class EventResource {
         else {
            event = eventBean.createEvent(event);
         }
+        addMeter.mark();
+        eventsCounter.inc();
         return Response.status(200).entity(event).build();
     }
 
     @Produces({MediaType.APPLICATION_JSON})
     @GET
+    @Metered(name = "requests")
     public Response getEvent(){
         List<EventDto> events = eventBean.findAll();
         return Response.status(200).entity(events).build();
@@ -90,6 +105,7 @@ public class EventResource {
         Boolean deleted = eventBean.deleteById(eventId);
 
         if (deleted) {
+            eventsCounter.dec();
             return Response.status(Response.Status.NO_CONTENT).build();
         }
         else {
@@ -104,13 +120,6 @@ public class EventResource {
         EventDto dto = eventBean.putEvent(eventId,event);
         return  Response.status(200).entity(event).build();
     }
-
-
-
-
-
-
-
 
 
 }
