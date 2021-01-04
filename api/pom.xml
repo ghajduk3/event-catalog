@@ -40,6 +40,8 @@
     </dependencies>
 
 
+
+
     <build>
         <plugins>
             <plugin>
@@ -50,15 +52,17 @@
                     <execution>
                         <id>package</id>
                         <goals>
-<!--                            <goal>copy-dependencies</goal>-->
+                            <!--                            <goal>copy-dependencies</goal>-->
                             <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
+
+
+
 
 
 </project>

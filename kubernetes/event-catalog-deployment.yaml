@@ -21,6 +21,7 @@ spec:
         - image: ghajduk3/event-catalog:latest
 #          Pod name
           name: event-catalog
+
 #          Here we can override environment variables
 #          env:
 #            - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
@@ -38,10 +39,13 @@ spec:
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/key.json
+            - name: KUMULUZEE_CONFIG_ETCD_HOSTS
+              value: http://etcd:2379
           ports:
             - containerPort: 8081
               name: server
               protocol: TCP
+          imagePullPolicy: Always
           livenessProbe:
             httpGet:
               path: /health/live
@@ -63,8 +67,8 @@ metadata:
   name: event-catalog
 spec:
 #  Changed to ClusterIP because we are using Ingress
-  type: ClusterIP
-#  type: LoadBalancer
+#  type: ClusterIP
+  type: LoadBalancer
   ports:
     - port: 8080
       protocol: TCP

@@ -8,17 +8,17 @@ kumuluzee:
     max-retry-delay-ms: 900000
     etcd:
       hosts: http://localhost:2379
-
+#      hosts: http://etcd:2379
   server:
     base-url: http://localhost:8081
     http:
       port: 8081
 
   datasources:
-# PRODUCTION
+# DEVELOPMENT
     - jndi-name: jdbc/EventCatalogDS
-      connection-url: jdbc:postgresql:///rsodatabase?cloudSqlInstance=a1-projekat:us-central1:rsodatabase&socketFactory=com.google.cloud.sql.postgres.SocketFactory
-      username: postgres1
+      connection-url: jdbc:postgresql://localhost:5432/event-catalog
+      username: postgres
       password: postgres
   health:
     checks:
@@ -58,16 +58,16 @@ kumuluzee:
 
 location:
   service-name: location-processing
-  port: 8080
+  port: 8083
   version: 1.0.0
-  environment: prod
+  environment: dev
   process-base-uri: v1/location/process
 
 image:
   service-name: image-upload
-  port: 8080
+  port: 8082
   version: 1.0.0
-  environment: prod
+  environment: dev
   upload-base-uri: v1/upload/
 
 

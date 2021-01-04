@@ -1,6 +1,9 @@
 package si.fri.rso.event_catalog.services.db;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import si.fri.rso.event_catalog.models.dtos.EventDto;
 import si.fri.rso.event_catalog.models.dtos.ImageDTO;
 import si.fri.rso.event_catalog.models.entities.EventEntity;
@@ -13,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javax.ws.rs.InternalServerErrorException;
@@ -118,6 +122,9 @@ public class EventsDbBean {
         return result;
     }
 
+    @Timeout(value=10, unit = ChronoUnit.SECONDS)
+    @CircuitBreaker(requestVolumeThreshold = 5)
+    @Fallback(fallbackMethod = "preprocessLocationFallback")
     public Integer preprocessLocation(String location){
         String locationId;
         try {
@@ -136,6 +143,9 @@ public class EventsDbBean {
 
     }
 
+    public Integer preprocessLocationFallback(String location){
+        return null;
+    }
 
 }
 
