@@ -4,6 +4,7 @@
         <non-jta-data-source>jdbc/EventCatalogDS</non-jta-data-source>
 
         <class>si.fri.rso.event_catalog.models.entities.EventEntity</class>
+<!--        <class>si.fri.rso.event_catalog.models.entities.LocationEntity</class>-->
         <class>si.fri.rso.event_catalog.models.transformers.InstantAttributeConverter</class>
 
         <properties>

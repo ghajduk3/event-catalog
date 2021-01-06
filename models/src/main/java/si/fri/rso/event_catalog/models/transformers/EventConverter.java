@@ -18,7 +18,7 @@ public class EventConverter extends GenericConverter<EventEntity,EventDto>{
         dto.setEventStart(entity.getEventStart());
         dto.setEventEnd(entity.getEventEnd());
         dto.setDateStored(entity.getDateStored());
-        dto.setAddress(Integer.toString(entity.getLocation_id()));
+        dto.setlocationId(Integer.toString(entity.getLocation_id()));
         dto.setDescription(entity.getDescription());
         return dto;
     }

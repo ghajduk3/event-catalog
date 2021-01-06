@@ -1,8 +1,15 @@
 package si.fri.rso.event_catalog.services.dao;
 
+import si.fri.rso.event_catalog.models.dtos.EventSummary;
 import si.fri.rso.event_catalog.models.entities.EventEntity;
+import si.fri.rso.event_catalog.services.exceptions.InternalServerException;
+import si.fri.rso.event_catalog.services.exceptions.InvalidEntityException;
+import si.fri.rso.event_catalog.services.exceptions.InvalidParameterException;
 
 import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @RequestScoped
@@ -18,11 +25,11 @@ public class EventDAO extends GenericDAO<EventEntity,Integer>{
     }
 
     @Override
-    public EventEntity update(EventEntity event, Integer id){
+    public EventEntity update(EventEntity event, Integer id) throws EntityNotFoundException, InvalidEntityException, InternalServerException {
         EventEntity entity = findById(id);
 
         if(entity == null){
-            return null;
+            throw new InvalidEntityException();
         }
 
         try {
@@ -35,6 +42,7 @@ public class EventDAO extends GenericDAO<EventEntity,Integer>{
         }
         return event;
     }
+
 
 
 

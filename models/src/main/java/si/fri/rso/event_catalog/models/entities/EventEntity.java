@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
 
-@Entity
+@Entity(name="cleaning_events")
 @Table(name="cleaning_events")
 @NamedQueries(value=
         {
-      @NamedQuery(name="Event.findAll",query = "SELECT ev FROM EventEntity ev")
+      @NamedQuery(name="Event.findAll",query = "SELECT ev FROM cleaning_events ev")
 })
 public class EventEntity implements Serializable {
 

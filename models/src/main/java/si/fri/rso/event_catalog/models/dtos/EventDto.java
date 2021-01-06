@@ -13,7 +13,7 @@ public class EventDto {
     private Date eventStart;
     private Date eventEnd;
     private Date dateStored = new Date();
-    private String address;
+    private String locationId;
     private String description;
     private String uploadedInputStream;
     private Long fileLength;
@@ -33,11 +33,11 @@ public class EventDto {
     }
 
 
-    public EventDto(Integer event_id, Date eventStart, Date eventEnd, String address, String description, String uploadedInputStream, Long fileLength, String imageUri) {
+    public EventDto(Integer event_id, Date eventStart, Date eventEnd, String locationId, String description, String uploadedInputStream, Long fileLength, String imageUri) {
         this.event_id = event_id;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
-        this.address = address;
+        this.locationId = locationId;
         this.description = description;
         this.uploadedInputStream = uploadedInputStream;
         this.fileLength = fileLength;
@@ -77,12 +77,12 @@ public class EventDto {
         this.dateStored = dateStored;
     }
 
-    public String getAddress() {
-        return address;
+    public String getlocationId() {
+        return locationId;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setlocationId(String locationId) {
+        this.locationId = locationId;
     }
 
 

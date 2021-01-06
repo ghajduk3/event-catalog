@@ -13,6 +13,10 @@ kumuluzee:
     base-url: http://localhost:8081
     http:
       port: 8081
+      servlet:
+        mapping: /openapi-custom-mapping
+  openapi:
+    enabled: true
 
   datasources:
 # PRODUCTION
@@ -37,6 +41,7 @@ kumuluzee:
         url-pattern: /v1/catalog/events/*
       - name: metricsEndpoint
         url-pattern: /metrics/*
+
   logs:
     config-file: '<?xml version="1.0" encoding="UTF-8"?>
                         <Configuration name="comments">
@@ -61,6 +66,7 @@ kumuluzee:
   persistence-units:
     - name: "event-catalog-jpa"
       continue-on-error: false
+
 
 location:
   service-name: location-processing
