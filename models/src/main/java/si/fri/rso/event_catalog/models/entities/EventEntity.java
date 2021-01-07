@@ -98,7 +98,7 @@ public class EventEntity implements Serializable {
         return image_uri;
     }
 
-    public void setImage_id(String image_id) {
+    public void setImage_id(String image_uri) {
         this.image_uri = image_uri;
     }
 

@@ -106,16 +106,17 @@ public class EventResource {
 
         EventDto event = new EventDto(null,dat.parse(eventStart),dat.parse(eventEnd),address,description, Base64.getEncoder().encodeToString(bytes),Long.valueOf(bytes.length),null);
         System.out.println(Base64.getEncoder().encodeToString(bytes));
+        EventSummary eventSummary;
 
         if((event.getEventStart() == null || event.getEventEnd() == null || event.getlocationId()==null || event.getDescription() == null)){
             return Response.status(403).build();
         }
         else {
-            event = eventBean.createEvent(event);
+            eventSummary = eventBean.createEvent(event);
         }
         addMeter.mark();
         eventsCounter.inc();
-        return Response.status(201).entity(event).build();
+        return Response.status(201).entity(eventSummary).build();
     }
 
 
@@ -144,8 +145,14 @@ public class EventResource {
     @Metered(name = "requests")
     public Response getEvents(){
 //        List<EventDto> events = eventBean.findAll();
-        List<EventDto> events = eventBean.findAll();
-        return Response.status(200).entity(events).build();
+        List<EventSummary> events;
+        try{
+            events = eventBean.findAll();
+        }
+        catch (Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+        return Response.status(Response.Status.OK).entity(events).build();
 
     }
 
@@ -174,7 +181,7 @@ public class EventResource {
     @GET
     @Path("/{eventId}")
     public Response getEvent(@Parameter(description = "Cleaning event ID.", required = true)
-            @PathParam("eventId") Integer eventId) throws InvalidParameterException, InternalServerException {
+            @PathParam("eventId") Integer eventId) {
         EventSummary event;
         try {
             event = eventBean.findById(eventId);
@@ -198,16 +205,31 @@ public class EventResource {
                             responseCode = "204"
                     ),
                     @ApiResponse(
+                            description = "Bad request",
+                            responseCode = "400"
+                    ),
+                    @ApiResponse(
                             description = "Entity not found",
                             responseCode = "404"
+                    ),
+                    @ApiResponse(
+                            description = "Server error",
+                            responseCode = "500"
                     )
             }
     )
     @DELETE
     @Path("/{eventId}")
     public Response deleteEvent(@Parameter(description = "Cleaning event ID.", required = true)
-            @PathParam("eventId") Integer eventId) throws InvalidParameterException, InternalServerException {
-        Boolean deleted = eventBean.deleteById(eventId);
+            @PathParam("eventId") Integer eventId) {
+        Boolean deleted ;
+        try {
+            deleted = eventBean.deleteById(eventId);
+        }catch (InvalidParameterException e){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }catch (InternalServerException e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
 
         if (deleted) {
             eventsCounter.dec();
@@ -245,7 +267,7 @@ public class EventResource {
                                         description = "DTO object with cleaning event.",
                                         required = true, content = @Content(
                                         schema = @Schema(implementation = EventDto.class)))
-                                        EventDto event) throws InvalidParameterException, InternalServerException, InvalidEntityException {
+                                        EventDto event) {
 
         EventDto eventDto;
         try{

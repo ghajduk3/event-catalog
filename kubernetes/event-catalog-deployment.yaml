@@ -41,6 +41,10 @@ spec:
               value: /var/secrets/google/key.json
             - name: KUMULUZEE_CONFIG_ETCD_HOSTS
               value: http://etcd:2379
+            - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+              value: http://etcd:2379
+            - name: KUMULUZEE_DATASOURCES0_PASSWORD
+              value: cG9zdGdyZXMx
           ports:
             - containerPort: 8081
               name: server

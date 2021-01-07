@@ -23,6 +23,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.InternalServerErrorException;
@@ -37,6 +38,8 @@ import javax.ws.rs.core.MediaType;
 
 @RequestScoped
 public class EventsDbBean {
+
+    private Logger log = Logger.getLogger(EventsDbBean.class.getName());
 
     @Inject
     private EventDAO eventDao;
@@ -55,15 +58,19 @@ public class EventsDbBean {
     private ImageUpload imageUpload;
 
 
-    public EventDto createEvent(EventDto event) throws Exception {
+
+    public EventSummary createEvent(EventDto event) throws Exception {
 
         Integer locationId = locationProcessing.preprocessLocation(event.getlocationId());
         String imageUri = imageUpload.uploadImage(new ImageDTO(event.getUploadedInputStream(), event.getFileLength()));
         EventEntity ent = eventConverter.transformToEntity(event);
-        ent.setImage_id(imageUri);
+        System.out.println(imageUri);
         ent.setLocation_id(locationId);
-        ent = eventDao.createNew(ent);
-        return eventConverter.transformToDTO(ent);
+        ent.setImage_id(imageUri);
+        System.out.println(ent.getImage_id());
+        System.out.println(ent.getLocation_id());
+        EventSummary eventSummary = eventSummaryConverter.transformToDTO(eventDao.createNew(ent)) ;
+        return eventSummary;
     }
 
 
@@ -75,9 +82,9 @@ public class EventsDbBean {
     }
 
 
-    public List<EventDto> findAll() {
+    public List<EventSummary> findAll() {
         List<EventEntity> allEvents = eventDao.findAll();
-        return eventConverter.transformToDTO(allEvents);
+        return eventSummaryConverter.transformToDTO(allEvents);
     }
 
 

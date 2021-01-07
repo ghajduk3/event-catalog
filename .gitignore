@@ -12,3 +12,5 @@ models/target/
 services/target
 
 .idea/
+
+.*/
