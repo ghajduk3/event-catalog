@@ -1,5 +1,6 @@
 package si.fri.rso.event_catalog.services.clients;
 
+//import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
@@ -35,7 +36,6 @@ public class LocationProcessing {
     @Inject
     @DiscoverService(value = "location-processing", version = "1.0.0")
     private String baseUrl;
-
 
 
     @PostConstruct

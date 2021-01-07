@@ -1,8 +1,9 @@
 package si.fri.rso.event_catalog.services.clients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.kumuluz.ee.discovery.annotations.DiscoverService;
+//import com.kumuluz.ee.discovery.annotations.RegisterService;
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
-import com.kumuluz.ee.discovery.annotations.RegisterService;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -51,7 +52,7 @@ public class ImageUpload {
         baseUrl = baseUrl + "/image/v1/upload";
     }
 
-    @Timeout(value=3, unit = ChronoUnit.SECONDS)
+    @Timeout(value=5, unit = ChronoUnit.SECONDS)
     @CircuitBreaker(requestVolumeThreshold = 3)
     @Fallback(fallbackMethod = "uploadImageFallback")
     public String uploadImage(ImageDTO image) {

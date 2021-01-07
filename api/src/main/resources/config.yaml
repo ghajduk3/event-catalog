@@ -8,15 +8,14 @@ kumuluzee:
     max-retry-delay-ms: 900000
     etcd:
       hosts: http://localhost:2379
-  discovery:
-    etcd:
-      hosts: http://etcd:2379
-
   server:
 #    base-url: http://localhost:8081
     base-url: http://52.191.32.66
     http:
       port: 8081
+  discovery:
+    etcd:
+      hosts: http://localhost:2379
   openapi:
     enabled: true
 
@@ -25,7 +24,7 @@ kumuluzee:
     - jndi-name: jdbc/EventCatalogDS
       connection-url: jdbc:postgresql:///rsodatabase?cloudSqlInstance=a1-projekat:us-central1:rsodatabase&socketFactory=com.google.cloud.sql.postgres.SocketFactory
       username: postgres1
-      password:
+      password: postgres
 #    - jndi-name: jdbc/EventCatalogDS
 #      connection-url: jdbc:postgresql://localhost:5432/event-catalog
 #      username: postgres
@@ -35,14 +34,14 @@ kumuluzee:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/EventCatalogDS
-      http-health-check:
-        - connection-url: http://location-processing/v1/location
-        - connection-url: http://location-processing/v1/image/upload
+##      http-health-check:
+#        - connection-url: http://location-processing:8083/v1/location
+##        - connection-url: http://image-upload:8082/v1/image/upload
 
   metrics:
     web-instrumentation:
       - name: eventEndpoint
-        url-pattern: /v1/catalog/events/*
+        url-pattern: event/v1/catalog/events/*
       - name: metricsEndpoint
         url-pattern: /metrics/*
 
@@ -88,6 +87,8 @@ image:
 
 app-properties:
   broken: false
+
+
 
 
 

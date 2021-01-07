@@ -43,25 +43,25 @@ spec:
               value: http://etcd:2379
             - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
               value: http://etcd:2379
-            - name: KUMULUZEE_DATASOURCES0_PASSWORD
-              value: cG9zdGdyZXMx
+#            - name: KUMULUZEE_DATASOURCES0_PASSWORD
+#              value: postgres
           ports:
             - containerPort: 8081
               name: server
               protocol: TCP
           imagePullPolicy: Always
-          livenessProbe:
-            httpGet:
-              path: /health/live
-              port: server
-            initialDelaySeconds: 60
-            periodSeconds: 3
-          readinessProbe:
-            httpGet:
-              path: /health/ready
-              port: server
-            initialDelaySeconds: 20
-            periodSeconds: 3
+#          livenessProbe:
+#            httpGet:
+#              path: /event/health/live
+#              port: server
+#            initialDelaySeconds: 120
+#            periodSeconds: 10
+#          readinessProbe:
+#            httpGet:
+#              path: /event/health/ready
+#              port: server
+#            initialDelaySeconds: 120
+#            periodSeconds: 10
 
 ---
 
@@ -71,8 +71,8 @@ metadata:
   name: event-catalog
 spec:
 #  Changed to ClusterIP because we are using Ingress
-#  type: ClusterIP
-  type: LoadBalancer
+  type: ClusterIP
+#  type: LoadBalancer
   ports:
     - port: 8080
       protocol: TCP
