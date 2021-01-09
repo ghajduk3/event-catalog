@@ -34,7 +34,6 @@ public class ImageUpload {
     @Inject
     private ImageProperties imageConfig;
 
-//    private String baseUrl;
     private Client httpClient;
 
     @Inject
@@ -45,10 +44,7 @@ public class ImageUpload {
 
     @PostConstruct
     private void init(){
-        System.out.println("Image client started");
-        System.out.println(baseUrl);
         httpClient = ClientBuilder.newClient();
-//        baseUrl = "http://" + imageConfig.getServiceName() + ":" + imageConfig.getPort() + "/v1/upload";
         baseUrl = baseUrl + "/image/v1/upload";
     }
 

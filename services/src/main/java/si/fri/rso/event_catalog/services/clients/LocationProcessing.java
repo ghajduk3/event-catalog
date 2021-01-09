@@ -30,7 +30,6 @@ public class LocationProcessing {
     @Inject
     private LocationProperties locationConfig;
 
-//    private String baseUrl;
     private Client httpClient;
 
     @Inject
@@ -40,10 +39,9 @@ public class LocationProcessing {
 
     @PostConstruct
     private void init(){
-        System.out.println("Location client started");
         httpClient = ClientBuilder.newClient();
-//        baseUrl = "http://" + locationConfig.getServiceName() +  ":" + locationConfig.getPort() + "/v1/location/";
         baseUrl = baseUrl + "/location/v1/location/";
+
     }
 
     @Timeout(value=3, unit = ChronoUnit.SECONDS)

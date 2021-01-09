@@ -64,11 +64,8 @@ public class EventsDbBean {
         Integer locationId = locationProcessing.preprocessLocation(event.getlocationId());
         String imageUri = imageUpload.uploadImage(new ImageDTO(event.getUploadedInputStream(), event.getFileLength()));
         EventEntity ent = eventConverter.transformToEntity(event);
-        System.out.println(imageUri);
         ent.setLocation_id(locationId);
         ent.setImage_id(imageUri);
-        System.out.println(ent.getImage_id());
-        System.out.println(ent.getLocation_id());
         EventSummary eventSummary = eventSummaryConverter.transformToDTO(eventDao.createNew(ent)) ;
         return eventSummary;
     }

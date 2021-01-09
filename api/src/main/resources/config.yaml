@@ -9,8 +9,8 @@ kumuluzee:
     etcd:
       hosts: http://localhost:2379
   server:
-#    base-url: http://localhost:8081
-    base-url: http://52.191.32.66
+    base-url: http://localhost:8081
+
     http:
       port: 8081
   discovery:
@@ -20,23 +20,19 @@ kumuluzee:
     enabled: true
 
   datasources:
-# PRODUCTION
-    - jndi-name: jdbc/EventCatalogDS
-      connection-url: jdbc:postgresql:///rsodatabase?cloudSqlInstance=a1-projekat:us-central1:rsodatabase&socketFactory=com.google.cloud.sql.postgres.SocketFactory
-      username: postgres1
-      password: postgres
 #    - jndi-name: jdbc/EventCatalogDS
-#      connection-url: jdbc:postgresql://localhost:5432/event-catalog
-#      username: postgres
+#      connection-url: jdbc:postgresql:///rsodatabase?cloudSqlInstance=a1-projekat:us-central1:rsodatabase&socketFactory=com.google.cloud.sql.postgres.SocketFactory
+#      username: postgres1
 #      password: postgres
+    - jndi-name: jdbc/EventCatalogDS
+      connection-url: jdbc:postgresql://localhost:5432/event-catalog
+      username: postgres
+      password: postgres
   health:
     checks:
       data-source-health-check:
         type: liveness
         jndi-name: jdbc/EventCatalogDS
-##      http-health-check:
-#        - connection-url: http://location-processing:8083/v1/location
-##        - connection-url: http://image-upload:8082/v1/image/upload
 
   metrics:
     web-instrumentation:
